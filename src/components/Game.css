@@ -1,27 +1,11 @@
-body {
-    background-color: blanchedalmond;
+
+
+#map { 
+    height: 30vh;
+    width: 50vw;
 }
 
-#map { height: 180px; }
-
-#app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-
-}
-
-img {
-    width: 30vw;
-    height: 20vw;
-
-}
-
-p {
-    display: hidden;
-}
-
-.game {
-    text-align: center;
+#flag-img {
+    height: 30vh;
+    width: 45vw;
 }

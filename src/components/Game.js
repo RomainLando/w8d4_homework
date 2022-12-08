@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import './Game.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 const Game = () => {
 
@@ -11,6 +12,7 @@ const Game = () => {
   const [timeLeft, setTimeLeft] = useState(120);
   const [score, setScore] = useState(0);
   const [guess, setGuess] = useState("");
+  const [location, setLocation] = useState([0,0]);
   
 
   useEffect(() => {
@@ -37,10 +39,10 @@ const Game = () => {
     const num = Math.floor((Math.random() * 250))
     setImgUrl(api[num].flags.png);
     setCountry(api[num].name.common);
+    setLocation(api[num].latlng)
     setHint(
       "This country is found in "+ api[num].subregion+", The capital is "+api[num].capital+", and the population is "+api[num].population+"."
     )
-    setText("")
   }
 
   const handleGuess = (evt) => {
@@ -59,10 +61,6 @@ const Game = () => {
     }
   }
 
-  const handleHint = () => {
-    setText(hint)
-  }
-
   useEffect(() => {
     setTimeout(() => {
       if (timeLeft) {
@@ -72,24 +70,43 @@ const Game = () => {
   
 
   return (
-    <>
-      <div id="map">
-      </div>
       <div id="app">
-        <h1>Flag Guesser</h1>
-        <img id="flag-img" src={imgUrl} alt="flag"/>
-        <div id="actions">
-          <button onClick={handleClick}>Gimme Another Flag!</button>
-          <input type="text" placeholder="Enter your guess" value={guess} onInput={handleGuess}></input>
+        <div id="game-container">
+          <h1>Flag Guesser</h1>
+          <div id="game">
+            <div className="game-text">
+              {timeLeft ? <h1>{timeLeft}</h1> : <h1>Time's up!</h1>}
+              <h2>You're score is {score}</h2>
+            </div>
+          </div>
         </div>
-        <span><button onClick={handleHint}>Need a hint?</button></span>
-        <p>{text}</p>
-        <div className="game">
-          {timeLeft ? <h1>{timeLeft}</h1> : <h1>Time's up!</h1>}
-          <h2>You're score is {score}</h2>
+        <div id="main-container">
+
+          <div id="flag-game">
+            <img id="flag-img" src={imgUrl} alt="flag"/>
+          </div>
+
+          <div id="map-container">
+            <MapContainer id="map" center={[0, 0]} zoom={1.4} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={location}>
+                <Popup>
+                  {hint}
+                </Popup>
+              </Marker>
+            </MapContainer>
+          </div>
+
+          <div id="actions">
+            <button onClick={handleClick}>Gimme Another Flag!</button>
+            <input type="text" placeholder="Enter your guess" value={guess} onInput={handleGuess}></input>
+          </div>  
+          
         </div>
       </div>
-    </>
   );
 }
 
