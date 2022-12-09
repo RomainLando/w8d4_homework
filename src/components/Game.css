@@ -1,11 +1,50 @@
+body {
+    margin: 0;
+    background-color: #faebd7;
+}
 
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-text{
+    text-align: center;
+    color: #B69870;
+}
 
 #map { 
-    height: 30vh;
-    width: 50vw;
+    height: 512px;
+    width: 512px;
+}
+
+#flag-game {
+    margin-bottom: 20px;
 }
 
 #flag-img {
-    height: 30vh;
-    width: 45vw;
+    height: 200px;
+    width: auto;
+}
+
+#actions {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#actions > button {
+    border-radius: 7px;
+    background-color: #FFF9F0;
+    border: solid 1px #B69870;
+    color: #B69870;
+}
+
+#actions > input {
+    border-radius: 7px;
+    background-color: #FFFEFD;
+    border: solid 1px #B69870;
+    color: #B69870;
+
 }

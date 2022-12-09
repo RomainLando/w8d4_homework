@@ -8,7 +8,6 @@ const Game = () => {
   const [imgUrl, setImgUrl] = useState("");
   const [country, setCountry] = useState("");
   const [hint, setHint] = useState("");
-  const [text, setText] = useState("");
   const [timeLeft, setTimeLeft] = useState(120);
   const [score, setScore] = useState(0);
   const [guess, setGuess] = useState("");
@@ -71,23 +70,29 @@ const Game = () => {
 
   return (
       <div id="app">
-        <div id="game-container">
-          <h1>Flag Guesser</h1>
-          <div id="game">
-            <div className="game-text">
-              {timeLeft ? <h1>{timeLeft}</h1> : <h1>Time's up!</h1>}
-              <h2>You're score is {score}</h2>
-            </div>
-          </div>
-        </div>
         <div id="main-container">
+
+          <div className="game-text">
+            {timeLeft ? <h1>You have {timeLeft}s to guess as many contries as you can!</h1> : <h1>Time's up! Refresh the webpage to play again</h1>}
+            <h2>You're score is {score}</h2>
+          </div>
+
+          <div id="actions">
+            <button onClick={handleClick}>Gimme Another Flag!</button>
+            <input type="text" placeholder="Enter your guess..." value={guess} onInput={handleGuess}></input>
+          </div> 
 
           <div id="flag-game">
             <img id="flag-img" src={imgUrl} alt="flag"/>
           </div>
 
           <div id="map-container">
-            <MapContainer id="map" center={[0, 0]} zoom={1.4} scrollWheelZoom={false}>
+            <MapContainer id="map" 
+            center={[0, 0]} 
+            zoom={1} 
+            scrollWheelZoom={false} 
+            zoomControl={false} 
+            doubleClickZoom={false}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -98,12 +103,7 @@ const Game = () => {
                 </Popup>
               </Marker>
             </MapContainer>
-          </div>
-
-          <div id="actions">
-            <button onClick={handleClick}>Gimme Another Flag!</button>
-            <input type="text" placeholder="Enter your guess" value={guess} onInput={handleGuess}></input>
-          </div>  
+          </div> 
           
         </div>
       </div>
